@@ -138,11 +138,6 @@ BRAND_HINTS = {
     "TOYOTA":        (4,  2.0,  9.0), "VOLKSWAGEN":    (4,  2.0,  9.5),
     "VOLVO":         (4,  2.0, 10.0),
 }
-# Remove ghost duplicate select layer 
-div[data-baseweb=="select"] div:nth-child(2) {
-    display: none !important;
-}
-
 
 # ══════════════════════════════════════════════════════════════════
 #  UI
@@ -151,7 +146,7 @@ div[data-baseweb=="select"] div:nth-child(2) {
 # Header
 st.markdown("""
 <div style="text-align:center;padding:30px 0 18px">
-    <div style="font-size:2.8rem">🚗💨</div>
+    <div style="font-size:2.8rem"> 🚙☁️</div>
     <h1 style="font-size:1.85rem;font-weight:800;color:#f3f4f6;margin:10px 0 6px">
         CO₂ Emission Predictor
     </h1>
