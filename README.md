@@ -94,11 +94,11 @@ Open `Fuel_CO₂_EmissionForecast.ipynb` in **Google Colab** or **Jupyter Notebo
 
 
 ## 📁 Project Structure
-
-"fuel-co2-emission-forecast/
+```
+fuel-co2-emission-forecast/
 │
 ├── Fuel_CO₂_EmissionForecast.ipynb     # Main notebook
 ├── FuelConsumptionCo2.csv              # Dataset
-└── README.md                           # Project documentation "
-
+└── README.md                           # Project documentation 
+```
 
