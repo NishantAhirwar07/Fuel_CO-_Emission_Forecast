@@ -170,7 +170,6 @@ selected_make = st.selectbox(
 hint = BRAND_HINTS.get(selected_make, (4, 2.0, 9.5))
 default_cyl, default_eng, default_fuel = hint
 
-st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
 
 # ── Input card ────────────────────────────────────────────────────
 st.markdown("""
@@ -292,11 +291,3 @@ for ico, clr, lbl, rng, ex in [
         <span style="color:#6b7280;font-size:0.82rem">{ex}</span>
     </div>
     """, unsafe_allow_html=True)
-
-# ── Footer ────────────────────────────────────────────────────────
-st.markdown("""
-<div style="text-align:center;color:#374151;font-size:0.72rem;
-            padding:24px 0 8px;letter-spacing:1px">
-    Multiple Linear Regression &nbsp;·&nbsp; R² = 0.8912 &nbsp;·&nbsp; Scikit-learn
-</div>
-""", unsafe_allow_html=True)
