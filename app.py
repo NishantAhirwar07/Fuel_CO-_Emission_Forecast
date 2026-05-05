@@ -138,7 +138,7 @@ BRAND_HINTS = {
     "TOYOTA":        (4,  2.0,  9.0), "VOLKSWAGEN":    (4,  2.0,  9.5),
     "VOLVO":         (4,  2.0, 10.0),
 }
-/* Remove ghost duplicate select layer */
+# Remove ghost duplicate select layer 
 div[data-baseweb="select"] div:nth-child(2) {
     display: none !important;
 }
