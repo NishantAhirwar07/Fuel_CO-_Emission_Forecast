@@ -52,7 +52,7 @@ div[data-baseweb="select"] svg { color: #6b7280 !important; }
     background: #3b82f6 !important;
 }
 [data-testid="stSelectSlider"] > div > div > div > div {
-    background: #022311 !important;
+    background: #3b82f6 !important;
 }
 
 /* Button */
@@ -72,6 +72,14 @@ div[data-baseweb="select"] svg { color: #6b7280 !important; }
 }
 
 #MainMenu, footer { visibility: hidden; }
+
+/* ── Sidebar ── */
+[data-testid="stSidebar"] {
+    background: #0d1117 !important;
+    border-right: 1px solid #1e2330 !important;
+}
+[data-testid="stSidebar"] .input-label { color: #9ca3af; }
+[data-testid="stSidebarContent"] { padding: 24px 16px !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -154,49 +162,48 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("")
+# ── Sidebar inputs ────────────────────────────────────────────────
+with st.sidebar:
+    st.markdown('<div class="input-label">🏷️ &nbsp; Car Brand / Make</div>', unsafe_allow_html=True)
+    selected_make = st.selectbox(
+        "Car Make",
+        options=["— Choose a brand —"] + car_makes,
+        key="make_select",
+    )
 
-# ── Car Make selector ─────────────────────────────────────────────
-st.markdown('<div class="input-label">🏷️ &nbsp; Car Brand / Make</div>', unsafe_allow_html=True)
-selected_make = st.selectbox(
-    "Car Make",
-    options=["— Choose a brand —"] + car_makes,
-    key="make_select",
-)
+    hint = BRAND_HINTS.get(selected_make, (4, 2.0, 9.5))
+    default_cyl, default_eng, default_fuel = hint
 
-hint = BRAND_HINTS.get(selected_make, (4, 2.0, 9.5))
-default_cyl, default_eng, default_fuel = hint
+    st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
 
-st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
+    st.markdown('<div class="input-label">🔩 &nbsp; Number of Cylinders</div>', unsafe_allow_html=True)
+    cylinders = st.select_slider(
+        "Cylinders",
+        options=[2, 3, 4, 5, 6, 8, 10, 12, 16],
+        value=default_cyl,
+        key="cyl_slider",
+    )
 
-st.markdown('<div class="input-label">🔩 &nbsp; Number of Cylinders</div>', unsafe_allow_html=True)
-cylinders = st.select_slider(
-    "Cylinders",
-    options=[2, 3, 4, 5, 6, 8, 10, 12, 16],
-    value=default_cyl,
-    key="cyl_slider",
-)
+    st.markdown("<div style='height:10px'></div>", unsafe_allow_html=True)
 
-st.markdown("<div style='height:10px'></div>", unsafe_allow_html=True)
+    st.markdown('<div class="input-label">⚙️ &nbsp; Engine Size <span style="color:#4b5563;font-weight:400">(Litres)</span></div>', unsafe_allow_html=True)
+    engine_size = st.slider(
+        "Engine Size", min_value=1.0, max_value=8.5,
+        value=float(default_eng), step=0.1, key="eng_slider", format="%.1f L",
+    )
 
-st.markdown('<div class="input-label">⚙️ &nbsp; Engine Size <span style="color:#4b5563;font-weight:400">(Litres)</span></div>', unsafe_allow_html=True)
-engine_size = st.slider(
-    "Engine Size", min_value=1.0, max_value=8.5,
-    value=float(default_eng), step=0.1, key="eng_slider", format="%.1f L",
-)
+    st.markdown("<div style='height:10px'></div>", unsafe_allow_html=True)
 
-st.markdown("<div style='height:10px'></div>", unsafe_allow_html=True)
+    st.markdown('<div class="input-label">⛽ &nbsp; Combined Fuel Consumption <span style="color:#4b5563;font-weight:400">(L / 100 km)</span></div>', unsafe_allow_html=True)
+    fuel_comb = st.slider(
+        "Fuel Consumption", min_value=4.0, max_value=22.0,
+        value=float(default_fuel), step=0.1, key="fuel_slider", format="%.1f L",
+    )
 
-st.markdown('<div class="input-label">⛽ &nbsp; Combined Fuel Consumption <span style="color:#4b5563;font-weight:400">(L / 100 km)</span></div>', unsafe_allow_html=True)
-fuel_comb = st.slider(
-    "Fuel Consumption", min_value=4.0, max_value=22.0,
-    value=float(default_fuel), step=0.1, key="fuel_slider", format="%.1f L",
-)
+    st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
 
-# ── Predict button ────────────────────────────────────────────────
-st.button("🔍  Predict CO₂ Emission", use_container_width=True, type="primary")
-
-st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
+    # ── Predict button ─────────────────────────────────────────────
+    st.button("🔍  Predict CO₂ Emission", use_container_width=True, type="primary")
 
 # ── Prediction ────────────────────────────────────────────────────
 prediction = float(model.predict([[cylinders, engine_size, fuel_comb]])[0])
