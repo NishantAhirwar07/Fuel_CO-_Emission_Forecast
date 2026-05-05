@@ -139,6 +139,7 @@ BRAND_HINTS = {
     "VOLVO":         (4,  2.0, 10.0),
 }
 
+
 # ══════════════════════════════════════════════════════════════════
 #  UI
 # ══════════════════════════════════════════════════════════════════
@@ -146,7 +147,7 @@ BRAND_HINTS = {
 # Header
 st.markdown("""
 <div style="text-align:center;padding:30px 0 18px">
-    <div style="font-size:2.8rem"> 🚙☁️</div>
+    <div style="font-size:2.8rem">🚙☁️</div>
     <h1 style="font-size:1.85rem;font-weight:800;color:#f3f4f6;margin:10px 0 6px">
         CO₂ Emission Predictor
     </h1>
@@ -169,12 +170,7 @@ selected_make = st.selectbox(
 hint = BRAND_HINTS.get(selected_make, (4, 2.0, 9.5))
 default_cyl, default_eng, default_fuel = hint
 
-
-# ── Input card ────────────────────────────────────────────────────
-st.markdown("""
-<div style="background:#1a1d27;border:1px solid #252836;
-            border-radius:14px;padding:26px 30px 20px;margin-bottom:6px">
-""", unsafe_allow_html=True)
+st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
 
 st.markdown('<div class="input-label">🔩 &nbsp; Number of Cylinders</div>', unsafe_allow_html=True)
 cylinders = st.select_slider(
@@ -199,8 +195,6 @@ fuel_comb = st.slider(
     "Fuel Consumption", min_value=4.0, max_value=22.0,
     value=float(default_fuel), step=0.1, key="fuel_slider", format="%.1f L",
 )
-
-st.markdown("</div>", unsafe_allow_html=True)
 
 # ── Predict button ────────────────────────────────────────────────
 st.button("🔍  Predict CO₂ Emission", use_container_width=True, type="primary")
