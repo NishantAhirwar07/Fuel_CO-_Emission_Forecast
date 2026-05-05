@@ -139,7 +139,7 @@ BRAND_HINTS = {
     "VOLVO":         (4,  2.0, 10.0),
 }
 # Remove ghost duplicate select layer 
-div[data-baseweb="select"] div:nth-child(2) {
+div[data-baseweb=="select"] div:nth-child(2) {
     display: none !important;
 }
 
