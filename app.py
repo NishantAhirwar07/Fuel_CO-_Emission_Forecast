@@ -10,7 +10,6 @@ st.set_page_config(
     page_title="CO₂ Emission Forecast",
     page_icon="🌫️",
     layout="wide",
-    initial_sidebar_state="expanded",
 )
 
 # ── Global CSS + Smoke / Dark Theme ─────────────────────────────────────────
@@ -513,105 +512,6 @@ with right_col:
     st.plotly_chart(fig_gauge, use_container_width=True, config={"displayModeBar": False})
 
 
-# ══════════════════════════════════════════════════════════════════
-#  ROW 3 — Contribution bar + Animated smoke impact
-# ══════════════════════════════════════════════════════════════════
-st.markdown('<p class="section-label" style="margin-top:8px">Feature Contributions</p>', unsafe_allow_html=True)
-
-col_bar, col_impact = st.columns([1.2, 1], gap="large")
-
-with col_bar:
-    coefs = model.coef_          # [cyl, eng, fuel]
-    features = ["Cylinders", "Engine Size", "Fuel Consumption"]
-    values   = [coefs[0]*cylinders, coefs[1]*engine_size, coefs[2]*fuel_comb]
-    colors_bar = ["#ff3b3b", "#ff7b00", "#ffcc00"]
-
-    fig_bar = go.Figure(go.Bar(
-        x           = values,
-        y           = features,
-        orientation = 'h',
-        marker      = dict(color=colors_bar,
-                           line=dict(color='rgba(0,0,0,0)', width=0)),
-        text        = [f"+{v:.1f} g/km" for v in values],
-        textposition= "outside",
-        textfont    = dict(family="Rajdhani", color="#f0f0ff", size=13),
-    ))
-    fig_bar.update_layout(
-        paper_bgcolor = "rgba(0,0,0,0)",
-        plot_bgcolor  = "rgba(13,13,20,0.4)",
-        font          = dict(family="Rajdhani", color="#f0f0ff"),
-        height        = 240,
-        margin        = dict(t=10, b=10, l=10, r=80),
-        xaxis         = dict(showgrid=True, gridcolor="#1a1a2a",
-                             tickfont=dict(color="#7a7a9a"), zeroline=False),
-        yaxis         = dict(tickfont=dict(color="#c0c0d0", size=13), showgrid=False),
-        bargap        = 0.35,
-    )
-    st.plotly_chart(fig_bar, use_container_width=True, config={"displayModeBar": False})
-
-with col_impact:
-    # Trees needed to offset annual emission (assume 15 000 km/year; 1 tree ≈ 21 kg CO₂/yr)
-    annual_kg    = prediction * 15_000 / 1_000
-    trees_needed = annual_kg / 21
-    fill_pct     = min(prediction / 450 * 100, 100)
-
-    st.markdown(f"""
-    <div class="glass-card" style="min-height:240px">
-        <div style="color:#7a7a9a;font-size:0.7rem;letter-spacing:3px;
-                    text-transform:uppercase;margin-bottom:16px">
-            🌍 Annual Environmental Impact
-        </div>
-
-        <div style="margin-bottom:18px">
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-                <span style="font-size:0.85rem;color:#c0c0d0">CO₂ per year</span>
-                <span style="font-family:Orbitron;color:{color};font-size:0.9rem">
-                    {annual_kg:,.0f} kg
-                </span>
-            </div>
-            <div style="background:#111122;border-radius:999px;height:8px;overflow:hidden">
-                <div style="width:{fill_pct}%;height:100%;
-                            background:linear-gradient(90deg,{color}88,{color});
-                            border-radius:999px;
-                            transition:width 1s ease;
-                            box-shadow:0 0 12px {color}66">
-                </div>
-            </div>
-        </div>
-
-        <div style="margin-bottom:18px">
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-                <span style="font-size:0.85rem;color:#c0c0d0">Trees to offset</span>
-                <span style="font-family:Orbitron;color:#00e87a;font-size:0.9rem">
-                    🌳 {trees_needed:,.0f}
-                </span>
-            </div>
-            <div style="background:#111122;border-radius:999px;height:8px;overflow:hidden">
-                <div style="width:{min(trees_needed/500*100,100):.0f}%;height:100%;
-                            background:linear-gradient(90deg,#00e87a44,#00e87a);
-                            border-radius:999px;box-shadow:0 0 10px #00e87a44">
-                </div>
-            </div>
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px">
-            <div style="background:rgba(255,59,59,0.07);border:1px solid rgba(255,59,59,0.18);
-                        border-radius:10px;padding:12px;text-align:center">
-                <div style="font-family:Orbitron;color:#ff7b00;font-size:1.1rem">
-                    {prediction * 15_000 / 1_000_000:.2f}t
-                </div>
-                <div style="color:#7a7a9a;font-size:0.68rem;letter-spacing:1px">Metric Tonnes/yr</div>
-            </div>
-            <div style="background:rgba(0,232,122,0.07);border:1px solid rgba(0,232,122,0.18);
-                        border-radius:10px;padding:12px;text-align:center">
-                <div style="font-family:Orbitron;color:#00e87a;font-size:1.1rem">
-                    {prediction / 180 * 100:.0f}%
-                </div>
-                <div style="color:#7a7a9a;font-size:0.68rem;letter-spacing:1px">vs Avg Vehicle</div>
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════
