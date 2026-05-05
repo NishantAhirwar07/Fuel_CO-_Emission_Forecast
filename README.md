@@ -43,8 +43,8 @@ The model was evaluated on a 20% held-out test set:
 | Metric | Value |
 |---|---|
 | **R² Score** | ~0.8912 |
-| **RMSE** | Calculated |
-| **MAE** | Calculated |
+| **RMSE** | 22.4468 |
+| **MAE** | 16.1325 |
 
 > ✅ An R² of **0.8912** means the model explains ~89% of the variance in CO₂ emissions — a strong result for a linear model.
 
@@ -95,10 +95,10 @@ Open `Fuel_CO₂_EmissionForecast.ipynb` in **Google Colab** or **Jupyter Notebo
 
 ## 📁 Project Structure
 
-fuel-co2-emission-forecast/
+"fuel-co2-emission-forecast/
 │
-├── Fuel_CO₂_EmissionForecast.ipynb   # Main notebook
-├── FuelConsumptionCo2.csv            # Dataset
-└── README.md                         # Project documentation
+├── Fuel_CO₂_EmissionForecast.ipynb     # Main notebook
+├── FuelConsumptionCo2.csv              # Dataset
+└── README.md                           # Project documentation "
 
 
