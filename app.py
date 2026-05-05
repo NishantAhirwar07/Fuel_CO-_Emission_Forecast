@@ -147,14 +147,14 @@ BRAND_HINTS = {
 # Header
 st.markdown("""
 <div style="text-align:center;padding:30px 0 18px">
-    <div style="font-size:1.8rem"></div>
-    <h1 style="font-size:1.0rem;font-weight:800;color:#f3f4f6;margin:10px 0 6px">
+    <div style="font-size:2.8rem"></div>
+    <h1 style="font-size:1.8rem;font-weight:600;color:#f3f4f6;margin:10px 0 6px">
         CO₂ Emission Predictor
     </h1>
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("---")
+st.markdown("")
 
 # ── Car Make selector ─────────────────────────────────────────────
 st.markdown('<div class="input-label">🏷️ &nbsp; Car Brand / Make</div>', unsafe_allow_html=True)
