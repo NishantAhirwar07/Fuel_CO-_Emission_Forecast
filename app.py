@@ -147,7 +147,7 @@ BRAND_HINTS = {
 # Header
 st.markdown("""
 <div style="text-align:center;padding:30px 0 18px">
-    <div style="font-size:2.8rem">🚙☁️</div>
+    <div style="font-size:2.8rem"></div>
     <h1 style="font-size:1.85rem;font-weight:800;color:#f3f4f6;margin:10px 0 6px">
         CO₂ Emission Predictor
     </h1>
